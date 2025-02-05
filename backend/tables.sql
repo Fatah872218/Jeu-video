@@ -97,7 +97,8 @@ insert into monstres(espece,pointdevie) VALUES
 ('orc',10),
 ('troll des bois',40),
 ('gnome',6),
-('nain',9);
+('nain',9),
+('dragon',119);
 
 INSERT INTO combats (lieu, dt, personnages_id, monstres_id) VALUES
 ('mont de la desolation', '1021-11-23', 1, 2),
