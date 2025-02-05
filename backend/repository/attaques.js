@@ -4,16 +4,18 @@ const toSQL = require("../utils/tools.js");
 class repoAttaques {
   constructor() {
     this.pool = mariadb.createPool({
-      host: "mydb.com",
-      user: "myUser",
-      password: "myPassword",
+      host: "localhost",
+      user: "userJeuVideo",
+      password: "1230",
+      database: "jeu_video",
       connectionLimit: 5,
     });
   }
 
-  async creerAtaque(id, nom, type, degats) {
+  async creerAttaque(id, nom, type, degats) {
+    let conn = "";
     try {
-      let conn = await this.pool.getConnection();
+      conn = await this.pool.getConnection();
       let res = await conn.query(
         `INSERT INTO Attaques (id, nom, type, degats) VALUES (?, ?, ?, ?)`,
         [id, nom, type, degats]
@@ -24,12 +26,14 @@ class repoAttaques {
       throw err;
     } finally {
       if (conn) conn.release();
+      console.log("connection ferme");
     }
   }
 
   async lireAttaque(id) {
+    let conn;
     try {
-      let conn = await this.pool.getConnection();
+      conn = await this.pool.getConnection();
       let row = await conn.query(`SELECT * FROM Attaques WHERE id = ?`, [id]);
       return row;
     } catch (err) {
@@ -41,9 +45,11 @@ class repoAttaques {
   }
 
   async modifierAttaque(id, changes) {
+    let conn;
     try {
-      let conn = await this.pool.getConnection();
+      conn = await this.pool.getConnection();
       const sqlString = toSQL(changes);
+      console.log(`UPDATE Attaques SET ${sqlString} WHERE id = ${id}`);
       let res = await conn.query(
         `UPDATE Attaques SET ${sqlString} WHERE id = ?`,
         [id]
@@ -58,8 +64,9 @@ class repoAttaques {
   }
 
   async supprimerAttaque(id) {
+    let conn;
     try {
-      let conn = await this.pool.getConnection();
+      conn = await this.pool.getConnection();
       let res = await conn.query(`DELETE FROM Attaques WHERE id = ?`, [id]);
       return res;
     } catch (err) {
@@ -70,5 +77,20 @@ class repoAttaques {
     }
   }
 }
+
+const changes1 = { nom: "super karate kick" };
+/*
+let testAttaque = new repoAttaques();
+const callLire = async () => {
+  const resultat = await testAttaque.creerAttaque(
+    6,
+    "Karate kick",
+    "physique",
+    3
+  );
+  console.info(resultat);
+};
+------------------------------------------example d'appelle 
+*/
 
 module.exports = repoAttaques;
