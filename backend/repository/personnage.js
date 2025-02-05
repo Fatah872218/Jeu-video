@@ -1,4 +1,5 @@
 const mariadb = require("mariadb");
+const toSQL = require("../utils/tools.js");
 require("dotenv").config();
 
 class repoPersonnage {
@@ -12,28 +13,32 @@ class repoPersonnage {
   }
 
   async creerPersonnage(id, nom, contenu, experience, niveau) {
+    let conn;
     try {
-      let conn = this.pool.getConnection();
-      let res = conn.query("INSERT INTO personnages VALUES (?,?,?,?,?)", [
+      conn = await this.pool.getConnection();
+      await conn.query("INSERT INTO personnages VALUES (?,?,?,?,?)", [
         id,
         nom,
         contenu,
         experience,
         niveau,
       ]);
+      return true;
     } catch (err) {
       console.error(err);
       throw new Error("");
     } finally {
-      if ()
+      if (conn) conn.release();
     }
   }
   async lirePersonnage(id) {
+    let conn;
     try {
-      let conn = this.pool.getConnection(
-        `SELECT * FROM personnages WHERE id=${id}`
-      );
-      conn.query();
+      conn = await this.pool.getConnection();
+      let res = await conn.query(`SELECT * FROM personnages WHERE id= (?);`, [
+        id,
+      ]);
+      return res;
     } catch (err) {
       console.error(err);
       throw new Error("");
@@ -41,11 +46,14 @@ class repoPersonnage {
   }
 
   async modifierPersonnage(id, changes) {
+    let conn;
     try {
-      let conn = this.pool.getConnection(
-        `UPDATE personnages SET ${toSQL(changes)} WHERE id=${id};`
+      conn = await this.pool.getConnection();
+      await conn.query(
+        `UPDATE personnages SET ${toSQL(changes)} WHERE id= (?);`,
+        [id]
       );
-      conn.query();
+      return true;
     } catch (err) {
       console.error(err);
       throw new Error("");
@@ -53,9 +61,11 @@ class repoPersonnage {
   }
 
   async supprimerPersonnage(id) {
+    let conn;
     try {
-      let conn = this.pool.getConnection();
-      conn.query(`DELETE FROM personnages WHERE id=${id};`);
+      conn = await this.pool.getConnection();
+      await conn.query(`DELETE FROM personnages WHERE id= (?) ;`, [id]);
+      return true;
     } catch (err) {
       console.error(err);
       throw new Error("");
@@ -63,4 +73,14 @@ class repoPersonnage {
   }
 }
 
-module.exports = new repoPersonnage();
+testRepo = new repoPersonnage();
+async function check() {
+  try {
+    const what = await testRepo.creerPersonnage(49, "l", "m", 654, 4);
+    console.log(what);
+  } catch (err) {
+    console.error(err);
+  }
+}
+check();
+// module.exports = new repoPersonnage();
