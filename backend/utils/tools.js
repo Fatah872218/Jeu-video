@@ -5,3 +5,5 @@ function toSQL(dict) {
   }
   return sqlStr.length ? sqlStr.slice(0, -1) : "";
 }
+
+module.exports = toSQL;

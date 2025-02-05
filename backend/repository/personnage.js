@@ -73,14 +73,4 @@ class repoPersonnage {
   }
 }
 
-testRepo = new repoPersonnage();
-async function check() {
-  try {
-    const what = await testRepo.creerPersonnage(49, "l", "m", 654, 4);
-    console.log(what);
-  } catch (err) {
-    console.error(err);
-  }
-}
-check();
-// module.exports = new repoPersonnage();
+module.exports = new repoPersonnage();
