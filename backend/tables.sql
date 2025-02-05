@@ -1,6 +1,6 @@
+CREATE Database if not exists jeu_video
 
-
-
+use jeu_video
 
 CREATE TABLE personnages (
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
