@@ -3,8 +3,8 @@ const router = express.router();
 
 router.get("/:id");
 
-router.post("");
+router.post("/");
 
 router.put("/:id");
 
-router.delete("/:id");
+router.delete("/:id", controllerPersonnages.supprimerMonstre);
