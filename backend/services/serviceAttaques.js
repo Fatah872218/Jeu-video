@@ -1,4 +1,4 @@
-const personnageRepository = require("../repositories/repositoryAttaques.js");
+const attaqueRepository = require("../repositories/repositoryAttaques.js");
 
 class attaquesService {
   //---------------------creer-----------------------------
