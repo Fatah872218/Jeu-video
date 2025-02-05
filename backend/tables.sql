@@ -36,6 +36,9 @@ CREATE TABLE monstres (
      pointdevie INT DEFAULT 0
 );
 
+
+
+
 CREATE TABLE combats (
    
    lieu VARCHAR(150) NOT NULL,
@@ -46,18 +49,6 @@ CREATE TABLE combats (
     FOREIGN KEY (monstres_id) REFERENCES monstres(id),
     PRIMARY KEY (personnages_id, monstres_id)
 );
-
-
-
-
-SELECT * FROM personnages;
-SELECT * FROM attaques;
-SELECT id, nom FROM attaques;
-SELECT * FROM personnages_attaques;
-SELECT * FROM monstres;
-SELECT * FROM combats;
-
-
 
 
 
@@ -98,10 +89,19 @@ insert into monstres(espece,pointdevie) VALUES
 ('troll des bois',40),
 ('gnome',6),
 ('nain',9),
-('dragon',119);
+('dragon',119); 
 
 INSERT INTO combats (lieu, dt, personnages_id, monstres_id) VALUES
 ('mont de la desolation', '1021-11-23', 1, 2),
 ('mont de la solitude', '1000-11-03', 2, 3),
 ('mont du chaos', '1031-09-14', 3, 1),
 ('mont du massacre', '0728-02-05', 4, 1);
+
+
+
+SELECT * FROM personnages;
+SELECT * FROM attaques;
+SELECT id, nom FROM attaques;
+SELECT * FROM personnages_attaques;
+SELECT * FROM monstres;
+SELECT * FROM combats;
