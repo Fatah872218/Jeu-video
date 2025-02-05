@@ -30,10 +30,37 @@ CREATE TABLE personnages_attaques (
 );
 
 
+CREATE TABLE monstres (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    espece VARCHAR(150) NOT NULL,
+     pointdevie INT DEFAULT 0
+);
+
+CREATE TABLE combats (
+   
+   lieu VARCHAR(150) NOT NULL,
+     dt DATE,
+     personnages_id INT NOT NULL,
+     monstres_id INT NOT NULL,
+     FOREIGN KEY (personnages_id) REFERENCES personnages(id),
+    FOREIGN KEY (monstres_id) REFERENCES monstres(id),
+    PRIMARY KEY (personnages_id, monstres_id)
+);
+
+
+
+
 SELECT * FROM personnages;
 SELECT * FROM attaques;
 SELECT id, nom FROM attaques;
 SELECT * FROM personnages_attaques;
+SELECT * FROM monstres;
+SELECT * FROM combats;
+
+
+
+
+
 
 INSERT INTO personnages (nom, contenu, experience, niveau) VALUES
 ('Ghazak Khan', 'Ghazak est l''un des généraux mercenaires les plus talentueux de son époque. Son armée abrite une bonne partie des pires régiments de mercenaires. Comme les Gobelins Mutants de Manglan, les Guerriers Orques des Longues Dagues ou les terrifiants Trolls de Guerre des Montagnes Grises. Avec l''aide de ces derniers et de nombreuses autres crapules, Ghazak s''est forgé une solide réputation de massacreur au cours des innombrables campagnes où il a passé au fil de l''épée (et parfois dévoré) les populations de cités entières. Lorsque ses bannières ornées de queues de loups noires apparaissent à l''horizon, un vent de désespoir s''abat sur la région, le terrible Hobgobelin n''ayant jamais été vaincu à la bataille.', 150, 6),
@@ -66,4 +93,14 @@ INSERT INTO personnages_attaques (personnages_id, attaques_id) VALUES (3, 5);
 INSERT INTO personnages_attaques (personnages_id, attaques_id) VALUES (4, 2); 
 INSERT INTO personnages_attaques (personnages_id, attaques_id) VALUES (4, 3);
 
+insert into monstres(espece,pointdevie) VALUES
+('orc',10),
+('troll des bois',40),
+('gnome',6),
+('nain',9);
 
+INSERT INTO combats (lieu, dt, personnages_id, monstres_id) VALUES
+('mont de la desolation', '1021-11-23', 1, 2),
+('mont de la solitude', '1000-11-03', 2, 3),
+('mont du chaos', '1031-09-14', 3, 1),
+('mont du massacre', '0728-02-05', 4, 1);
