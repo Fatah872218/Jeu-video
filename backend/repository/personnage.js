@@ -14,7 +14,7 @@ class repoPersonnage {
   async creerPersonnage(id, nom, contenu, experience, niveau) {
     try {
       let conn = this.pool.getConnection();
-      conn.query("INSERT INTO personnages VALUES (?,?,?,?,?)", [
+      let res = conn.query("INSERT INTO personnages VALUES (?,?,?,?,?)", [
         id,
         nom,
         contenu,
@@ -24,6 +24,8 @@ class repoPersonnage {
     } catch (err) {
       console.error(err);
       throw new Error("");
+    } finally {
+      if ()
     }
   }
   async lirePersonnage(id) {
