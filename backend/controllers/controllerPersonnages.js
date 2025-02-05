@@ -1,16 +1,57 @@
 const express = require("express");
+const personnageService = require("../services/ServicePersonnages.js");
 class personnagesController {
-  creerPersonnage(req, res) {
-    res.send(" personnage ajouté");
+  //---------------------creer--------------------------
+  async creerPersonnage(req, res) {
+    const nouveauPersonnage = await personnageService.creerPersonnageService(
+      req.body
+    );
+    res.status(201).json(nouveauPersonnage);
+    try {
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
   }
-  lirePersonnage(req, res) {
-    res.send("message personnage");
+  //-------------------lire---------------------------
+  async lirePersonnage(req, res) {
+    const { id } = req.params;
+    try {
+      const personnage = await personnageService.lirePersonnageByIdService(id);
+      if (!personnage) {
+        return res.status(404).json({ message: "Personnage non trouvé" });
+      }
+      res.json(personnage);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
   }
-  modifierPersonnage(req, res) {
-    res.send(" personage modifié");
+  //------------------------modifier----------------
+  async modifierPersonnage(req, res) {
+    const { id } = req.params;
+    const personnageData = req.body;
+    try {
+      const modifierPersonnage =
+        await personnageService.modifierPersonnageService(id, personnageData);
+      if (!modifierPersonnage) {
+        return res.status(404).json({ message: "Personnage non trouvé" });
+      }
+      res.json(updatedPersonnage);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
   }
-  supprimerPersonnage(req, res) {
-    res.send("personnage supprimé");
+  //----------------supprimer------------------------
+  async supprimerPersonnage(req, res) {
+    const { id } = req.params;
+    try {
+      const result = await personnageService.supprimerPersonnageService(id);
+      if (!result) {
+        return res.status(404).json({ message: "Personnage non trouvé" });
+      }
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
   }
 }
 
