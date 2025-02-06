@@ -3,7 +3,6 @@ const toSQL = require("../utils/tools.js");
 
 class repoPersonnage {
   constructor() {
-    console.log(process.env.DB, process.env.HOST);
     this.pool = mariadb.createPool({
       host: process.env.HOST,
       database: process.env.DB,

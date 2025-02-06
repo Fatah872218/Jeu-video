@@ -3,11 +3,13 @@ const toSQL = require("../utils/tools.js");
 
 class repoAttaques {
   constructor() {
+    console.log(process.env.DB, process.env.HOST);
+
     this.pool = mariadb.createPool({
-      host: "localhost",
-      user: "userJeuVideo",
-      password: "1230",
-      database: "jeu_video",
+      host: process.env.HOST,
+      user: process.env.USER,
+      password: process.env.PASSWORD,
+      database: process.env.DB,
       connectionLimit: 5,
     });
   }
@@ -17,7 +19,7 @@ class repoAttaques {
     try {
       conn = await this.pool.getConnection();
       let res = await conn.query(
-        `INSERT INTO Attaques (id, nom, type, degats) VALUES (?, ?, ?, ?)`,
+        `INSERT INTO Attaques (id, nom, type, degats) VALUES (?, ?, ?, ?) RETURNING *`,
         [id, nom, type, degats]
       );
       return res;
@@ -78,4 +80,4 @@ class repoAttaques {
   }
 }
 
-module.exports = repoAttaques;
+module.exports = new repoAttaques();
