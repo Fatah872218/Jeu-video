@@ -12,11 +12,6 @@ class monstresService {
   }
 
 
-module.exports = new monstresService();
-
-
-
-
 	async modifierMonstreService(id, attaqueData) {
 		try {
 			return await repositoryMonstre.modifierMonstre(id, attaqueData);
