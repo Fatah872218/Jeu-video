@@ -1,5 +1,5 @@
 const express = require("express");
-const personnageService = require("../services/ServicePersonnages.js");
+const personnageService = require("../services/servicePersonnages.js");
 class personnagesController {
   //---------------------creer--------------------------
   async creerPersonnage(req, res) {
