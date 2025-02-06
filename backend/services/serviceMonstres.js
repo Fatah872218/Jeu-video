@@ -1,4 +1,3 @@
-
 const repositoryMonstre = require("../repository/monstres.js");
 
 class monstresService {
@@ -11,14 +10,20 @@ class monstresService {
     }
   }
 
+  async creerMonstreService(monstreData) {
+    try {
+      return await repositoryMonstre.creerMonstre(monstreData);
+    } catch (err) {
+      console.err(err.message);
+    }
+  }
 
-	async modifierMonstreService(id, attaqueData) {
-		try {
-			return await repositoryMonstre.modifierMonstre(id, attaqueData);
-		} catch (error) {
-			throw new Error("Erreur dans le service des Attaques: " + error.message);
-		}
-	}
+  async modifierMonstreService(id, attaqueData) {
+    try {
+      return await repositoryMonstre.modifierMonstre(id, attaqueData);
+    } catch (error) {
+      throw new Error("Erreur dans le service des Attaques: " + error.message);
+    }
+  }
 }
 module.exports = new monstreService();
-
