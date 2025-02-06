@@ -3,11 +3,11 @@ const personnageService = require("../services/servicePersonnages.js");
 class personnagesController {
   //---------------------creer--------------------------
   async creerPersonnage(req, res) {
-    const nouveauPersonnage = await personnageService.creerPersonnageService(
-      req.body
-    );
-    res.status(201).json(nouveauPersonnage);
     try {
+      const nouveauPersonnage = await personnageService.creerPersonnageService(
+        req.body
+      );
+      res.status(201).json(nouveauPersonnage);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

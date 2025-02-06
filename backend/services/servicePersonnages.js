@@ -4,6 +4,7 @@ class personnagesService {
   //---------------------creer-----------------------------
   async creerPersonnageService(personnageData) {
     try {
+      console.log("whaaaat");
       return await personnageRepository.creerPersonnage(personnageData);
     } catch (err) {
       console.error(err);

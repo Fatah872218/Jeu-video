@@ -1,9 +1,9 @@
 const mariadb = require("mariadb");
 const toSQL = require("../utils/tools.js");
-require("dotenv").config();
 
 class repoPersonnage {
   constructor() {
+    console.log(process.env.DB, process.env.HOST);
     this.pool = mariadb.createPool({
       host: process.env.HOST,
       database: process.env.DB,
@@ -15,15 +15,13 @@ class repoPersonnage {
   async creerPersonnage(id, nom, contenu, experience, niveau) {
     let conn;
     try {
+      console.log("creation de personnage");
       conn = await this.pool.getConnection();
-      await conn.query("INSERT INTO personnages VALUES (?,?,?,?,?)", [
-        id,
-        nom,
-        contenu,
-        experience,
-        niveau,
-      ]);
-      return true;
+      let res = await conn.query(
+        "INSERT INTO personnages VALUES (?,?,?,?,?) RETURNING *",
+        [id, nom, contenu, experience, niveau]
+      );
+      return res;
     } catch (err) {
       console.error(err);
       throw new Error("");

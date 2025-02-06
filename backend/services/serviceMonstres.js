@@ -14,7 +14,7 @@ class monstresService {
     try {
       return await repositoryMonstre.creerMonstre(monstreData);
     } catch (err) {
-      console.err(err.message);
+      console.error(err.message);
     }
   }
 

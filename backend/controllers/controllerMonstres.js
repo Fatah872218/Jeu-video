@@ -7,8 +7,9 @@ class monstresController {
       const nouvelleMonstre = await monstresService.creerMonstreService(
         req.body
       );
-      res.status(201).send(nouvelleMonstre);
+      res.status(201).json(nouvelleMonstre);
     } catch (err) {
+      console.log();
       res.status(500).json({ message: err.message });
     }
   }

@@ -6,18 +6,19 @@ class repositoryMonstres {
     this.pool = mariadb.createPool({
       host: "localhost",
       user: "userJeuVideo",
-      password: "1230",
+      password: "1234",
       database: "jeu_video",
       connectionLimit: 5,
     });
   }
 
-  async creerMonstre(id, espece, pointdevie) {
+  async creerMonstre(monstreData) {
+    const { id, espece, pointdevie } = monstreData;
     let conn;
     try {
       conn = await this.pool.getConnection();
       let res = await conn.query(
-        `INSERT INTO monstres (id, espece, pointdevie) VALUES (?, ?, ?)`,
+        `INSERT INTO monstres (id, espece, pointdevie) VALUES (?, ?, ?) RETURNING *`,
         [id, espece, pointdevie]
       );
       return res;
@@ -71,4 +72,4 @@ class repositoryMonstres {
   }
 }
 
-module.exports = repositoryMonstres;
+module.exports = new repositoryMonstres();
