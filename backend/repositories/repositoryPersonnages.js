@@ -12,7 +12,8 @@ class repoPersonnage {
     });
   }
 
-  async creerPersonnage(id, nom, contenu, experience, niveau) {
+  async creerPersonnage(personnageData) {
+    const { id, nom, contenu, experience, niveau } = personnageData;
     let conn;
     try {
       console.log("creation de personnage");
