@@ -78,19 +78,4 @@ class repoAttaques {
   }
 }
 
-const changes1 = { nom: "super karate kick" };
-/*
-let testAttaque = new repoAttaques();
-const callLire = async () => {
-  const resultat = await testAttaque.creerAttaque(
-    6,
-    "Karate kick",
-    "physique",
-    3
-  );
-  console.info(resultat);
-};
-------------------------------------------example d'appelle 
-*/
-
 module.exports = repoAttaques;

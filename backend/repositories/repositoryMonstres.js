@@ -1,7 +1,7 @@
 const mariadb = require("mariadb");
 const toSQL = require("../utils/tools.js");
 
-class repoMonstres {
+class repositoryMonstres {
   constructor() {
     this.pool = mariadb.createPool({
       host: "localhost",
@@ -10,6 +10,35 @@ class repoMonstres {
       database: "jeu_video",
       connectionLimit: 5,
     });
+  }
+
+  async creerMonstre(id, espece, pointdevie) {
+    let conn;
+    try {
+      conn = await this.pool.getConnection();
+      let res = await conn.query(
+        `INSERT INTO monstres (id, espece, pointdevie) VALUES (?, ?, ?)`,
+        [id, espece, pointdevie]
+      );
+      return res;
+    } catch (err) {
+      console.error(err.message);
+    } finally {
+      if (conn) conn.release();
+    }
+  }
+  async supprimerMonstre(id) {
+    let conn;
+    try {
+      conn = await this.pool.getConnection();
+      let res = await conn.query(`DELETE FROM Monstres WHERE id = ?`, [id]);
+      return res;
+    } catch (err) {
+      console.error(err.message);
+      throw err;
+    } finally {
+      if (conn) conn.release();
+    }
   }
   async lireMonstre(id) {
     let conn;
@@ -22,6 +51,24 @@ class repoMonstres {
       throw new Error("");
     }
   }
+  async modifierMonstre(id, changes) {
+    let conn;
+    try {
+      conn = await this.pool.getConnection();
+      const sqlString = toSQL(changes);
+      console.log(`UPDATE Monstres SET ${sqlString} WHERE id = ${id}`);
+      let res = await conn.query(
+        `UPDATE Monstres SET ${sqlString} WHERE id = ?`,
+        [id]
+      );
+      return res;
+    } catch (err) {
+      console.error(err.message);
+      throw err;
+    } finally {
+      if (conn) conn.release();
+    }
+  }
 }
 
-module.exports = new repoMonstres();
+module.exports = repositoryMonstres;
