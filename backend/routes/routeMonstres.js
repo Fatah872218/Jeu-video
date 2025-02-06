@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.router();
-const monstresController = require("../controllers/controllerMonstres.js");
+
+const controllerMonstres = require("../controllers/controllerMonstres.js");
 
 router.get("/:id");
 
-router.post("", monstresController.creerMonstre);
+router.post("", controllerMonstres.creerMonstre);
 
-router.put("/:id");
+router.put("/:id", controllerMonstres.modifierMonstre);
 
-router.delete("/:id");
+router.delete("/:id", controllerMonstres.supprimerMonstre);
