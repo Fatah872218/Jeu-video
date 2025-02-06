@@ -14,7 +14,7 @@ class attaquesController {
   async lireAttaque(req, res) {
     const { id } = req.params;
     try {
-      const attaque = await AttaqueService.lireAttaqueByIdService(id);
+      const attaque = await attaqueService.lireAttaqueByIdService(id);
       if (!attaque) {
         return res.status(404).json({ message: "Attaque non trouvé" });
       }
@@ -48,7 +48,7 @@ class attaquesController {
       if (!result) {
         return res.status(404).json({ message: "Attaque non trouvé" });
       }
-      res.status(204).send();
+      res.status(200).send(result);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

@@ -6,9 +6,10 @@ class repoPersonnage {
   constructor() {
     this.pool = mariadb.createPool({
       host: process.env.HOST,
-      database: process.env.DB,
       user: process.env.USER,
       password: process.env.PASSWORD,
+      database: process.env.DB,
+      connectionLimit: 5,
     });
   }
 
@@ -64,8 +65,12 @@ class repoPersonnage {
     let conn;
     try {
       conn = await this.pool.getConnection();
-      await conn.query(`DELETE FROM personnages WHERE id= (?) ;`, [id]);
-      return true;
+      const res = await conn.query(
+        `DELETE FROM personnages WHERE id= (?) RETURNING * ;`,
+        [id]
+      );
+      console.log(res);
+      return res;
     } catch (err) {
       console.error(err);
       throw new Error("");

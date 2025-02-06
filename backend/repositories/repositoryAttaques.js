@@ -1,13 +1,14 @@
 const mariadb = require("mariadb");
 const toSQL = require("../utils/tools.js");
+require("dotenv").config();
 
 class repoAttaques {
   constructor() {
     this.pool = mariadb.createPool({
-      host: "localhost",
-      user: "userJeuVideo",
-      password: "1230",
-      database: "jeu_video",
+      host: process.env.HOST,
+      user: process.env.USER,
+      password: process.env.PASSWORD,
+      database: process.env.DB,
       connectionLimit: 5,
     });
   }
@@ -67,7 +68,10 @@ class repoAttaques {
     let conn;
     try {
       conn = await this.pool.getConnection();
-      let res = await conn.query(`DELETE FROM Attaques WHERE id = ?`, [id]);
+      let res = await conn.query(
+        `DELETE FROM Attaques WHERE id = ? RETURNING *`,
+        [id]
+      );
       return res;
     } catch (err) {
       console.error(err.message);
@@ -78,4 +82,4 @@ class repoAttaques {
   }
 }
 
-module.exports = repoAttaques;
+module.exports = new repoAttaques();

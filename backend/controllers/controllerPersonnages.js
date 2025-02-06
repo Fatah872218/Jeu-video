@@ -48,7 +48,7 @@ class personnagesController {
       if (!result) {
         return res.status(404).json({ message: "Personnage non trouvé" });
       }
-      res.status(204).send();
+      res.status(200).send(result);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

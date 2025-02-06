@@ -16,7 +16,7 @@ class monstresController {
   async lireMonstre(req, res) {
     const { id } = req.params;
     try {
-      const monstre = await monstreService.lireMonstreByIdService(id);
+      const monstre = await monstresService.lireMonstreByIdService(id);
       if (!monstre) {
         return res.status(404).json({ message: "Monstre non trouvé" });
       }
@@ -28,7 +28,11 @@ class monstresController {
 
   async supprimerMonstre(req, res) {
     try {
-      const deletion = await monstresService.supprimerMonstre(req.params.id);
+      const id = req.params.id;
+      console.log(`id a supprimer: ${id}`);
+      const deletion = await monstresService.supprimerMonstre(id);
+      console.log(deletion);
+      res.status(200).send(deletion);
     } catch (err) {
       console.log(err);
       res.send("error while deleting monster");

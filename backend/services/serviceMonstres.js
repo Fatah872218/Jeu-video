@@ -27,7 +27,7 @@ class monstresService {
   }
   async lireMonstreByIdService(id) {
     try {
-      return await repositoryMonstre.lireMonstreById(id);
+      return await repositoryMonstre.lireMonstre(id);
     } catch (err) {
       console.error(err);
     }

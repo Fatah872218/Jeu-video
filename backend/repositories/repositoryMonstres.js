@@ -1,13 +1,14 @@
 const mariadb = require("mariadb");
 const toSQL = require("../utils/tools.js");
+require("dotenv").config();
 
 class repositoryMonstres {
   constructor() {
     this.pool = mariadb.createPool({
-      host: "localhost",
-      user: "userJeuVideo",
-      password: "1230",
-      database: "jeu_video",
+      host: process.env.HOST,
+      user: process.env.USER,
+      password: process.env.PASSWORD,
+      database: process.env.DB,
       connectionLimit: 5,
     });
   }
@@ -30,8 +31,12 @@ class repositoryMonstres {
   async supprimerMonstre(id) {
     let conn;
     try {
+      console.log("in repo monstre");
       conn = await this.pool.getConnection();
-      let res = await conn.query(`DELETE FROM Monstres WHERE id = ?`, [id]);
+      let res = await conn.query(
+        `DELETE FROM Monstres WHERE id = ? RETURNING *`,
+        [id]
+      );
       return res;
     } catch (err) {
       console.error(err.message);
@@ -58,9 +63,10 @@ class repositoryMonstres {
       const sqlString = toSQL(changes);
       console.log(`UPDATE Monstres SET ${sqlString} WHERE id = ${id}`);
       let res = await conn.query(
-        `UPDATE Monstres SET ${sqlString} WHERE id = ?`,
+        `UPDATE Monstres SET ${sqlString} WHERE id = ? RETURNING *`,
         [id]
       );
+      console.log(res);
       return res;
     } catch (err) {
       console.error(err.message);
@@ -71,4 +77,4 @@ class repositoryMonstres {
   }
 }
 
-module.exports = repositoryMonstres;
+module.exports = new repositoryMonstres();
