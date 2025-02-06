@@ -40,7 +40,17 @@ class repositoryMonstres {
       if (conn) conn.release();
     }
   }
-
+  async lireMonstre(id) {
+    let conn;
+    try {
+      conn = await this.pool.getConnection();
+      let res = await conn.query(`SELECT * FROM monstres WHERE id= (?);`, [id]);
+      return res;
+    } catch (err) {
+      console.error(err);
+      throw new Error("");
+    }
+  }
   async modifierMonstre(id, changes) {
     let conn;
     try {

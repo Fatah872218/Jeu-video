@@ -25,5 +25,13 @@ class monstresService {
       throw new Error("Erreur dans le service des Monstres: " + error.message);
     }
   }
+  async lireMonstreByIdService(id) {
+    try {
+      return await repositoryMonstre.lireMonstreById(id);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }
+
 module.exports = new monstresService();

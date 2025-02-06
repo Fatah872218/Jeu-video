@@ -1,7 +1,31 @@
 const express = require("express");
 const monstresService = require("../services/serviceMonstres.js");
 
-class controllerMonstres {
+class monstresController {
+  async creerMonstre(req, res) {
+    try {
+      const nouvelleMonstre = await monstresService.creerMonstreService(
+        req.body
+      );
+      res.status(201).send(nouvelleMonstre);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  }
+  //-------------------lire---------------------------
+  async lireMonstre(req, res) {
+    const { id } = req.params;
+    try {
+      const monstre = await monstreService.lireMonstreByIdService(id);
+      if (!monstre) {
+        return res.status(404).json({ message: "Monstre non trouvé" });
+      }
+      res.json(monstre);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   async supprimerMonstre(req, res) {
     try {
       const deletion = await monstresService.supprimerMonstre(req.params.id);
@@ -27,17 +51,6 @@ class controllerMonstres {
       res.status(500).json({ message: error.message });
     }
   }
-
-  async creerMonstre(req, res) {
-    try {
-      const nouvelleMonstre = await monstresService.creerMonstreService(
-        req.body
-      );
-      res.status(201).send(nouvelleMonstre);
-    } catch (err) {
-      res.status(500).json({ message: err.message });
-    }
-  }
 }
 
-module.exports = new controllerMonstres();
+module.exports = new monstresController();
