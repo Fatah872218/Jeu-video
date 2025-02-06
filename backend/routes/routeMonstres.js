@@ -1,10 +1,5 @@
 const express = require("express");
 const router = express.router();
+const controllerMonstres = require("../controllers/controllerMonstres.js");
 
-router.get("/:id");
-
-router.post("");
-
-router.put("/:id");
-
-router.delete("/:id");
+router.delete("/:id", controllerMonstres.supprimerMonstre);

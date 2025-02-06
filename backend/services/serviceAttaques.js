@@ -1,10 +1,14 @@
-const attaqueRepository = require("../repositories/repositoryAttaques.js");
+
+const attaquesRepository = require("../repository/attaques.js");
+
+
+
 
 class attaquesService {
 	//---------------------creer-----------------------------
 	async creerAttaqueService(attaqueData) {
 		try {
-			return await attaqueRepository.creerAttaque(attaqueData);
+			return await attaquesRepository.creerAttaque(attaqueData);
 		} catch (err) {
 			console.error(err);
 		}
@@ -12,7 +16,7 @@ class attaquesService {
 	//--------------------lire by id------------------------
 	async lireAttaqueByIdService(id) {
 		try {
-			return await attaqueRepository.lireAttaqueById(id);
+			return await attaquesRepository.lireAttaqueById(id);
 		} catch (err) {
 			console.error(err);
 		}
@@ -20,7 +24,7 @@ class attaquesService {
 	//-------------------modifier--------------------------
 	async modifierAttaqueService(id, attaqueData) {
 		try {
-			return await attaqueRepository.modifierAttaque(id, attaqueData);
+			return await attaquesRepository.modifierAttaque(id, attaqueData);
 		} catch (error) {
 			throw new Error("Erreur dans le service des Attaques: " + error.message);
 		}
@@ -29,7 +33,7 @@ class attaquesService {
 
 	async supprimerAttaqueService(id) {
 		try {
-			return await attaqueRepository.supprimerAttaque(id);
+			return await attaquesRepository.supprimerAttaque(id);
 		} catch (error) {
 			throw new Error("Erreur dans le service des Attaques: " + error.message);
 		}
