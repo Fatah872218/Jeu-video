@@ -1,0 +1,87 @@
+/* Applique une police rétro pour tout le site */
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+body {
+	background-color: #57e703;
+	font-family: "Press Start 2P", cursive;
+	color: #f0f0f0;
+	margin: 0;
+	padding: 0;
+}
+
+#game {
+	width: 80%;
+	height: 80%;
+	background-color: #b30000;
+	color: #ffffff;
+	padding: 20px;
+	margin-left: 10%;
+	margin-top: 5%;
+	border: 5px solid #fecc4c;
+	box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.6);
+}
+
+#stats {
+	border: 3px dashed #fecc4c;
+	padding: 10px;
+	color: #ffffff;
+	font-size: 24px;
+	text-shadow: 2px 2px 5px #ff4500;
+}
+
+#controls {
+	border: 3px solid #feac32;
+	padding: 20px;
+	color: #ffffff;
+	margin-top: 20px;
+	background-color: #232323;
+	text-align: center;
+}
+
+button {
+	cursor: pointer;
+	color: #0a0a23;
+	background-color: #feac32;
+	background-image: linear-gradient(#fecc4c, #ffac33);
+	border: 3px solid #feac32;
+	width: 12em;
+	height: 5em;
+	margin: 15px;
+	font-size: 18px;
+	font-family: "Press Start 2P", cursive;
+	text-shadow: 1px 1px 3px #000000;
+	transition: all 0.3s ease;
+}
+
+button:hover {
+	background-color: #f0a500;
+	box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.8);
+}
+
+#text {
+	background-color: #123aec;
+	color: #f7faff;
+	padding: 15px;
+	margin-top: 2em;
+	font-size: large;
+	font-family: "Press Start 2P", cursive;
+	border: 3px solid #feac32;
+	box-shadow: 0 0 10px #ff4500;
+}
+
+#monsterStats {
+	display: none;
+	border: 3px solid #feac32;
+	padding: 10px;
+	color: #ffffff;
+	background-color: #c70d0d;
+}
+
+.stat {
+	padding-right: 10px;
+	font-size: 16px;
+}
+
+#controls button {
+	margin: 10px;
+}
